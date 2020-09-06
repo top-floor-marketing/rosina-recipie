@@ -1,0 +1,176 @@
+h1 {
+  font-size: 2rem;
+  font-family: lato;
+  font-weight: bold;
+  color: #F42434;
+  margin-bottom: 20px;
+}
+
+.rosina-green-ribbon {
+ color: #166936;
+ font-size: 1.5rem;
+}
+.rosina-green-link {
+  color: #166936;
+ }
+ 
+ .rosina-green-link:hover {
+  color: #F42434;
+ }
+
+ .rosina-green {
+  color: #166936;
+ }
+ .rosina-green:hover {
+  color: #166936;
+ }
+
+ .rosina-red {
+  color: #F42434;
+ }
+
+p {
+  color: #272727;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.vh-60 {
+  min-height: 60vh;
+}
+
+.border-20 {
+  border-radius: 20px !important;
+}
+
+.no-bg-mob {
+  background-image: url('../img/Gift-card-bg.jpg');
+  background-position: left center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #FAFAFA;
+}
+
+.carousel-indicators li {
+  width: 15px;
+  height: 15px;
+  background-color:#16693650;
+  border-radius: 100%;
+  cursor: pointer;
+  bottom: -70px;
+}
+
+.product-card {
+  margin: 18px;
+}
+
+
+.carousel-indicators .active {
+  background-color: #166936;
+}
+
+.img-area {
+  margin-left: 35%;
+}
+
+.product-card-img {
+  position: absolute;
+  left: 0;
+  width: 35%;
+}
+
+.product-card-inner {
+  padding: 15px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.carousel-item {
+  padding-top: 20px;
+  min-height: 275px;
+}
+
+.mt-10 {
+ margin-top: 120px;
+}
+
+.CTA {
+  background-color: #F42434;
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn-primary {
+  box-shadow: 0 8px 11px -5px #00000080;
+}
+
+.leaf-left {
+  position: absolute;
+  left: -4em;
+  top: -6em;
+}
+
+.leaf-right {
+  position: absolute;
+  right: -6em;
+  bottom: -8.3em;
+  transform: rotate(114deg)scale(0.8);
+}
+
+.w-90 {
+  width: 90%;
+  color: white;
+}
+
+.card {
+  border: none;
+  margin-bottom: 8px;
+}
+
+.card-header {
+  background-color: #F42434;
+  border: none;
+  border-radius: 40px !important;
+  padding: 5px 20px;
+  align-items: center;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 3px 7px 0.2rem #00000024 !important;
+}
+
+@media all and (max-width:767px) {
+  .no-bg-mob {
+    background-image: none;
+  }
+  .vh-60 {
+    min-height: inherit;
+  }
+
+  .responsive-pl-5 {
+    padding-left:0 !important;
+  }
+
+  .responsive-pr-5 {
+    padding-right:0 !important;
+  }
+
+  .mt-10 {
+    margin-top: 30px;
+  }
+
+  .leaf-right {
+    right: 0;
+    bottom: -5.3em;
+  }
+}
