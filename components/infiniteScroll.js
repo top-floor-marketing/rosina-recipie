@@ -71,7 +71,7 @@ class InfiniteScroll extends HTMLElement {
   }
 
   loadMoreRecipies () {
-    this.recipies = []
+    this.render(true)
   }
 
   async fetchData () {
@@ -90,8 +90,11 @@ class InfiniteScroll extends HTMLElement {
     }
   }
 
-  render () {
+  render (spining) {
     this.innerHTML = templateInfiniteScroll(this.recipies)
+
+    // Add the load More button
+    this.innerHTML += loadMoreButton(spining)
   }
 
   async connectedCallback () {
@@ -101,9 +104,6 @@ class InfiniteScroll extends HTMLElement {
 
       // render initial recipies
       this.render()
-
-      // Add the load More button
-      this.innerHTML += loadMoreButton()
 
       // set event listener for load more
       const loadMore = this.querySelector('#loadMore')
