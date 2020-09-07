@@ -2,7 +2,7 @@ const stepFourTemplate = ({
   testProp = 'test'
 } = {}) => {
   return `
-      <p>Step 1</p>
+      <p class='animate__animated animate__fadeInUp'>Step 4</p>
       `
 }
 
