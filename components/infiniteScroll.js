@@ -101,7 +101,6 @@ class InfiniteScroll extends HTMLElement {
 
       // Combine the old data and new data
       const newRecipies = [...this.recipies, ...data.results]
-      console.log(newRecipies)
 
       this.setAttribute('recipies', JSON.stringify(newRecipies))
     } catch (e) {
