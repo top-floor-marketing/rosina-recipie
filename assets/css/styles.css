@@ -180,3 +180,11 @@ p {
     bottom: -5.3em;
   }
 }
+
+.modal-close {
+  z-index: 1;
+  right: 2rem;
+  top: 0.5rem;
+  color: white;
+  opacity: 1;
+}
