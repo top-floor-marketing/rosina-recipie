@@ -156,6 +156,9 @@ p {
 }
 
 @media all and (max-width:767px) {
+  .responsive-align-center {
+    text-align: center !important;
+  }
   .no-bg-mob {
     background-image: none;
   }
@@ -182,3 +185,55 @@ p {
 }
 
 
+/* toggle button */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 50px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  border: 1px solid gainsboro;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--red);
+  border: none;
+  box-shadow: 0 10px 30px rgb(244 36 52 / 25%), 0 6px 9px rgb(244 36 52 / 45%);
+}
+
+input:checked + .slider .in-text {
+  color: white !important;
+}
+
+.slider .toggler {
+  margin-left:5px;
+  width: 40px;
+  height: auto;
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/*toggle button*/
