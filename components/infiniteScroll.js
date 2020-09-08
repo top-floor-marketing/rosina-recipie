@@ -1,6 +1,6 @@
 const templateInfiniteScroll = (data) => {
   let cards = ''
-  data.results.forEach(result => {
+  data.forEach(result => {
     cards += /* html */`
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-4">
         <recipie-card
@@ -55,6 +55,10 @@ const error = () => {
 }
 
 class InfiniteScroll extends HTMLElement {
+  static get observedAttributes () {
+    return ['recipies', 'loadingmore']
+  }
+
   constructor () {
     super()
     // Get fetching url
@@ -65,13 +69,25 @@ class InfiniteScroll extends HTMLElement {
       ? `${this.getAttribute('url')}?page=${this.page}&results=${this.perPage}`
       : `https://randomuser.me/api/?page=${this.page}&results=${this.perPage}`
     this.recipies = []
+    this.loadingmore = false
 
     // Set the loading indicator
     this.innerHTML = spinner()
   }
 
-  loadMoreRecipies () {
-    this.render(true)
+  async loadMoreRecipies () {
+    this.setAttribute('loadingmore', true)
+    // Update the url
+    this.page = this.page++
+    // call fetch
+    await this.fetchData()
+    // Set loading more
+    this.setAttribute('loadingmore', false)
+  }
+
+  attributeChangedCallback (name, oldValue, newValue) {
+    this[name] = JSON.parse(newValue)
+    this.render()
   }
 
   async fetchData () {
@@ -83,18 +99,26 @@ class InfiniteScroll extends HTMLElement {
       // Parse the data to JSON
       const data = await response.json()
 
-      this.recipies = data
+      // Combine the old data and new data
+      const newRecipies = [...this.recipies, ...data.results]
+      console.log(newRecipies)
+
+      this.setAttribute('recipies', JSON.stringify(newRecipies))
     } catch (e) {
       console.log(e)
       this.innerHTML = error()
     }
   }
 
-  render (spining) {
+  render () {
     this.innerHTML = templateInfiniteScroll(this.recipies)
 
     // Add the load More button
-    this.innerHTML += loadMoreButton(spining)
+    this.innerHTML += loadMoreButton(this.loadingmore)
+
+    // set event listener for load more
+    const loadMore = this.querySelector('#loadMore')
+    loadMore.addEventListener('click', () => this.loadMoreRecipies())
   }
 
   async connectedCallback () {
@@ -104,10 +128,6 @@ class InfiniteScroll extends HTMLElement {
 
       // render initial recipies
       this.render()
-
-      // set event listener for load more
-      const loadMore = this.querySelector('#loadMore')
-      loadMore.addEventListener('click', () => this.loadMoreRecipies())
     } catch (e) {
       console.log(e)
       this.innerHTML = error()
