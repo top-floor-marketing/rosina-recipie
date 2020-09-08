@@ -2,7 +2,16 @@ const stepOneTemplate = ({
   testProp = 'test'
 } = {}) => {
   return `
-    <p class='animate__animated animate__fadeInUp'>Step 1</p>
+    <div class='row'>
+      <div class='col-md-6'>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <div class='col-md-6'>
+      </div>
+    </div>
     `
 }
 

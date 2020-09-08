@@ -51,7 +51,7 @@ const wizardTemplate = ({
       ${currentStepComponent(currentStep)}
     </div>
     <div class="modal-footer border-0">
-        <button data-toggle="modal" data-target="#recipeModal" type="button" class="btn text-white rounded-pill mr-3 py-2 px-4 mb-2 position-absolute" style="left: 10px; background-color: var(--red)">
+        <button data-toggle="modal" id='cancel-modal' data-target="#recipeModal" type="button" class="btn text-white rounded-pill mr-3 py-2 px-4 mb-2 position-absolute" style="left: 10px; background-color: var(--red)">
             Cancel
         </button>
         <button ${disableNext ? 'disabled' : ''} id='next-step' type="button" class="btn text-white rounded-pill py-2 px-4 mb-2" style="background-color: var(--green)">
@@ -81,10 +81,20 @@ class wizardContainer extends HTMLElement {
       }
       this.update()
     })
+
+    document.querySelector('#cancel-modal').addEventListener('click', () => {
+      this.wizardState.currentStep = 1
+      this.innerHTML = wizardTemplate(this.wizardState)
+      this.update()
+    })
   }
 
   update () {
     this.innerHTML = wizardTemplate(this.wizardState)
+    document.querySelector('#cancel-modal').addEventListener('click', () => {
+      this.wizardState.currentStep = 1
+      this.update()
+    })
     this.querySelector('#next-step').addEventListener('click', () => {
       if (this.wizardState.currentStep === 6) {
         this.wizardState.currentStep = 1
