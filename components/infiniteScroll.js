@@ -69,6 +69,7 @@ class InfiniteScroll extends HTMLElement {
       ? `${this.getAttribute('url')}?page=${this.page}&results=${this.perPage}`
       : `https://randomuser.me/api/?page=${this.page}&results=${this.perPage}`
     this.recipies = []
+    this.currentRecipie = null
     this.loadingmore = false
 
     // Set the loading indicator
@@ -114,6 +115,9 @@ class InfiniteScroll extends HTMLElement {
 
     // Add the load More button
     this.innerHTML += loadMoreButton(this.loadingmore)
+
+    // Add the modal
+    this.innerHTML += '<recipie-modal />'
 
     // set event listener for load more
     const loadMore = this.querySelector('#loadMore')
