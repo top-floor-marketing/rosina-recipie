@@ -1,8 +1,11 @@
+
 const stepTwoTemplate = ({
   testProp = 'test'
 } = {}) => {
-  return `
-      <p class='animate__animated animate__fadeInUp'>Step 2</p>
+  return /* html */ `
+    <div>
+      <more-less />
+    </div>
       `
 }
 

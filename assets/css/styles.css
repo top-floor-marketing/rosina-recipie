@@ -1,3 +1,7 @@
+*,*:focus {
+  outline: 0px transparent !important;
+}
+
 :root {
   --red: #F42434;
   --yellow: #FCD127;
@@ -237,3 +241,72 @@ input:checked + .slider .in-text {
 }
 
 /*toggle button*/
+
+/*rounded more-less button*/
+
+.width-60px {
+  width:60px;
+}
+
+.more-less-number {
+  border: 1px solid #e8e8e8;
+  border-left: none;
+  border-right: none;
+}
+
+.more-less-number-input {
+  padding: 4px 10px;
+  border: 1px solid #e8e8e8;
+  border: none;
+  font-weight: bold;
+}
+
+.rounded-more-less-left {
+  border-radius: 50% 0 0 50%;
+  background-color: white;
+  padding: 5px 10px;
+  border: 1px solid #e8e8e8;
+  font-weight: bold;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+.rounded-more-less-right {
+  border-radius:  0 50% 50% 0;
+  background-color: white;
+  padding: 5px 10px;
+  border: 1px solid #e8e8e8;
+  font-weight: bold;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.rounded-more-less-left:hover {
+  background-color: var(--red);
+  color: white;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.rounded-more-less-right:hover {
+  background-color: var(--green);
+  color: white;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.more-less-container {
+  box-shadow: 0 10px 20px rgb(0 0 0 / 6%), 0 6px 10px rgb(0 0 0 / 4%);
+  border-radius: 50% 50%;
+  width: fit-content;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+/*rounded more-less button*/
