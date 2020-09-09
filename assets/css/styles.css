@@ -182,9 +182,15 @@ p {
 }
 
 .modal-close {
-  z-index: 1;
+  z-index: 2;
   right: 2rem;
   top: 0.5rem;
   color: white;
   opacity: 1;
+}
+
+@media all and (min-width:767px) {
+  .responsive-image {
+    max-width: 100%;
+  }
 }
