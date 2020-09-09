@@ -31,7 +31,7 @@ const templateInfiniteScroll = (data) => {
           class="recipie-card-class"
           picture='${recipie.user.picture}'
           title='${recipie.recipie.title}'
-          subtitle='${recipie.recipie.state}'
+          subtitle='${recipie.recipie.subtitle}'
           stars='${recipie.recipie.stars}'
           userPicture='${recipie.user.picture}'
           userName='${recipie.user.name}'
