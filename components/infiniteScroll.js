@@ -1,15 +1,41 @@
 const templateInfiniteScroll = (data) => {
   let cards = ''
-  data.forEach(result => {
+
+  // Data transform OPTIONAL STEP
+  const curedData = data.reduce((acc, recipie) => {
+    acc.push({
+      images: undefined,
+      user: {
+        name: `${recipie.name.first} ${recipie.name.last}`,
+        picture: recipie.picture.large
+      },
+      recipie: {
+        title: recipie.email,
+        subtitle: '',
+        stars: recipie.dob.age,
+        instructions: ['This recipie has no instructions.'],
+        ingredients: [{
+          ingredient: 'This recipie has no ingredients',
+          amount: 0,
+          unit: ''
+        }]
+      }
+    })
+    return acc
+  }, [])
+
+  curedData.forEach(recipie => {
     cards += /* html */`
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-4">
         <recipie-card
-          picture='${result.picture.large}'
-          title='${result.email}'
-          subtitle='${result.location.state}'
-          stars='${result.dob.age}'
-          userPicture='${result.picture.thumbnail}'
-          userName='${result.name.first} ${result.name.last}'
+          class="recipie-card-class"
+          picture='${recipie.user.picture}'
+          title='${recipie.recipie.title}'
+          subtitle='${recipie.recipie.state}'
+          stars='${recipie.recipie.stars}'
+          userPicture='${recipie.user.picture}'
+          userName='${recipie.user.name}'
+          data='${JSON.stringify(recipie)}'"
         />
       </div>
     `
@@ -55,10 +81,6 @@ const error = () => {
 }
 
 class InfiniteScroll extends HTMLElement {
-  static get observedAttributes () {
-    return ['recipies', 'loadingmore']
-  }
-
   constructor () {
     super()
     // Get fetching url
@@ -77,17 +99,14 @@ class InfiniteScroll extends HTMLElement {
   }
 
   async loadMoreRecipies () {
-    this.setAttribute('loadingmore', true)
+    this.loadingmore = true
+    this.render()
     // Update the url
     this.page = this.page++
     // call fetch
     await this.fetchData()
     // Set loading more
-    this.setAttribute('loadingmore', false)
-  }
-
-  attributeChangedCallback (name, oldValue, newValue) {
-    this[name] = JSON.parse(newValue)
+    this.loadingmore = false
     this.render()
   }
 
@@ -103,7 +122,7 @@ class InfiniteScroll extends HTMLElement {
       // Combine the old data and new data
       const newRecipies = [...this.recipies, ...data.results]
 
-      this.setAttribute('recipies', JSON.stringify(newRecipies))
+      this.recipies = newRecipies
     } catch (e) {
       console.log(e)
       this.innerHTML = error()
@@ -117,11 +136,16 @@ class InfiniteScroll extends HTMLElement {
     this.innerHTML += loadMoreButton(this.loadingmore)
 
     // Add the modal
-    this.innerHTML += '<recipie-modal />'
+    this.innerHTML += `<recipie-modal data='${this.currentRecipie}' />`
 
-    // set event listener for load more
+    // set event listener for load more & cards
     const loadMore = this.querySelector('#loadMore')
+    const recipieCard = this.querySelectorAll('.recipie-card-class')
     loadMore.addEventListener('click', () => this.loadMoreRecipies())
+    recipieCard.forEach(card => card.addEventListener('click', () => {
+      this.currentRecipie = card.getAttribute('data')
+      this.render()
+    }))
   }
 
   async connectedCallback () {
