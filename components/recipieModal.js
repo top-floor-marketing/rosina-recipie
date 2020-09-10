@@ -42,7 +42,6 @@ class RecipieModal extends HTMLElement {
     let imageContainer = ''
 
     const { images = recipieModalDefaultData.images } = this.data
-    console.log(images)
 
     images.forEach((image, index) => {
       const isActive = index === 0 ? 'active' : ''
