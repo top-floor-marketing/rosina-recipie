@@ -1,7 +1,7 @@
 const stepTwoTemplate = (x) => {
   return /* html */ `
-  <div class='row append-ingredient'>
-    <button type="button" class="btn text-white rounded-pill py-2 px-4 mb-2 add-ingredient" style="background-color: var(--green); width: 180px;">
+  <div class='row append-ingredient animate__animated animate__fadeInUp'>
+    <button type="button" class="btn text-white rounded-pill py-2 px-4 mb-2 add-ingredient animate__animated animate__fadeIn animate__delay-1s" style="background-color: var(--green); width: 180px;">
       <i class="fas fa-plus mr-1"></i>
       Add Ingredient
     </button>

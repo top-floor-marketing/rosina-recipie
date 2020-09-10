@@ -2,7 +2,7 @@ const steps = (steps) => {
   let finalSteps = ''
   steps.forEach((step, index) => {
     finalSteps += /* html */`
-      <div class="row my-3">
+      <div class="row my-3 animate__animated animate__fadeInUp">
         <div class="col-10">
           <p class="m-0 text-break" style="border-bottom: 1px solid #C6C6C6;">${step}</p>
         </div>
@@ -24,7 +24,7 @@ const steps = (steps) => {
 
 const inputStep = () => {
   return /* html */`
-    <div class="row">
+    <div class="row animate__animated animate__fadeInUp">
       <div class="col-12 col-md-10">
         <input
           type="text"
@@ -35,7 +35,7 @@ const inputStep = () => {
         >
       </div>
     </div>
-    <div class="row">
+    <div class="row animate__animated animate__fadeIn animate__delay-1s">
       <div class="col">
         <button
           type="button"
