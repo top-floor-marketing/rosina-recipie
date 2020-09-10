@@ -1,27 +1,33 @@
-
-const stepTwoTemplate = ({
-  testProp = 'test'
-} = {}) => {
+const stepTwoTemplate = (x) => {
   return /* html */ `
-    <div>
-      <more-less />
-    </div>
-      `
+  <div class='row append-ingredient'>
+    <button type="button" class="btn text-white rounded-pill py-2 px-4 mb-2 add-ingredient" style="background-color: var(--green); width: 180px;">
+      <i class="fas fa-plus mr-1"></i>
+      Add Ingredient
+    </button>
+  </div>
+  `
 }
 
 class stepTwo extends HTMLElement {
   // Fires when an instance of the element is created or updated
   constructor () {
     super()
+    this.render()
+  }
 
-    const props = ['testProp']
-    // Get all the props
-    const templateProps = props.reduce((acc, prop) => {
-      acc[prop] = this.getAttribute(prop) ? this.getAttribute(prop) : undefined
-      return acc
-    }, {})
+  render () {
+    this.innerHTML = stepTwoTemplate()
+    const element = document.createRange().createContextualFragment("<div class='col-md-12'><ingredient-view /></div>")
+    this.querySelector('.append-ingredient').insertBefore(element, this.querySelector('.add-ingredient'))
+    this.listeners()
+  }
 
-    this.innerHTML = stepTwoTemplate(templateProps)
+  listeners () {
+    this.querySelector('.add-ingredient').addEventListener('click', () => {
+      const element = document.createRange().createContextualFragment("<div class='col-md-12'><ingredient-view /></div>")
+      this.querySelector('.append-ingredient').insertBefore(element, this.querySelector('.add-ingredient'))
+    })
   }
 }
 

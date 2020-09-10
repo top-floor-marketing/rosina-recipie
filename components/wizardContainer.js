@@ -1,5 +1,6 @@
 const recipeData = {
-  recipeType: []
+  recipeType: [],
+  recipeSteps: []
 }
 
 const stepTitle = (x) => {
@@ -45,9 +46,9 @@ const wizardTemplate = ({
   return `<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
   <div class="modal-content border-0">
     <div class="modal-header text-center border-0">
-      <h5 class="modal-title w-100 mb-3" id="recipeModalLable">${stepTitle(currentStep)}</h5>
+      <h3 class="modal-title w-100 mt-4 mb-3" id="recipeModalLable">${stepTitle(currentStep)}</h3>
     </div>
-    <div class="modal-body">
+    <div class="modal-body mb-4">
     <p class='mb-5 animate__animated animate__fadeIn text-center'>${stepDescription(currentStep)}</p>
       ${currentStepComponent(currentStep)}
     </div>

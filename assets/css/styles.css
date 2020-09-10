@@ -36,7 +36,7 @@ h1 {
  }
 
  .rosina-red {
-  color: var(--green);
+  color: var(--red);
  }
 
 p {
@@ -159,7 +159,14 @@ p {
   box-shadow: 0 3px 7px 0.2rem #00000024 !important;
 }
 
+.modal-body {
+  padding: 1rem 4rem;
+}
+
 @media all and (max-width:767px) {
+  .modal-body {
+    padding: 1rem;
+  }
   .responsive-align-center {
     text-align: center !important;
   }
@@ -310,3 +317,14 @@ input[type=number] {
 
 
 /*rounded more-less button*/
+
+.mat-text-field {
+  border: 1px solid green;
+  border-top: none;
+  border-left: 0;
+  border-right: 0;
+}
+
+.hover-pointer {
+  cursor: pointer;
+}

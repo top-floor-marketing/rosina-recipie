@@ -1,10 +1,12 @@
 
-const unitsDropdownTemplate = ({
-  testProp = 'test'
-} = {}) => {
+const unitsDropdownTemplate = () => {
   return /* html */ `
+      <style>
+        @import "../assets/css/styles.css";
+        @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css");
+      </style>
       <div>
-          <select class="form-control" name="" id="">
+          <select class="measure-unit form-control border-0" name="" id="">
             <option value='drop'>drop</option>
             <option value='smidgen'>smidgen</option>
             <option value='pinch'>pinch</option>
@@ -32,15 +34,30 @@ class unitsDropdown extends HTMLElement {
   // Fires when an instance of the element is created or updated
   constructor () {
     super()
+    this.attachShadow({ mode: 'open' })
+    this.render()
+  }
 
-    const props = ['testProp']
-    // Get all the props
-    const templateProps = props.reduce((acc, prop) => {
-      acc[prop] = this.getAttribute(prop) ? this.getAttribute(prop) : undefined
-      return acc
-    }, {})
+  checkUnitVal () {
+    const measureUnit = new CustomEvent('measure-unit', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        currAmount: this.shadowRoot.querySelector('.measure-unit').value
+      }
+    })
+    this.shadowRoot.dispatchEvent(measureUnit)
+  }
 
-    this.innerHTML = unitsDropdownTemplate(templateProps)
+  render () {
+    this.shadowRoot.innerHTML = unitsDropdownTemplate()
+  }
+
+  connectedCallback () {
+    this.render()
+    this.shadowRoot.querySelector('.measure-unit').addEventListener('change', () => {
+      this.checkUnitVal()
+    })
   }
 }
 
