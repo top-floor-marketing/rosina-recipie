@@ -133,7 +133,7 @@ class RecipieModal extends HTMLElement {
                   </div>
                 </div>
                 <div class="col-12 order-1 col-md-4 order-md-2 mb-2 d-flex align-items-center justify-content-center">
-                  <h4 class="font-weight-bold" style="color: var(--red)">${recipie.title}</h4>
+                  <h4 class="font-weight-bold text-break" style="color: var(--red)">${recipie.title}</h4>
                 </div>
                 <div class="col-12 order-3 col-md-4 order-md-3 mb-2 d-flex flex-column justify-content-center align-items-center">
                   <div class="row">

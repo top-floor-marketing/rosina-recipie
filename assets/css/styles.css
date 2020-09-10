@@ -340,5 +340,6 @@ input[type=number] {
 @media all and (min-width:767px) {
   .responsive-image {
     max-width: 100%;
+    width: 100%;
   }
 }

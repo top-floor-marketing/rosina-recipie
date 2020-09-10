@@ -30,10 +30,10 @@ const templateRecipieCard = ({
         </div>
       </div>
       <div class="row mt-auto mw-100">
-        <div class="d-flex align-items-center col-3 col-sm-4">
+        <div class="d-flex align-items-center col-4">
           <img src="${userPicture}" class="rounded-circle" style="max-width: 59px" />
         </div>
-        <div class="d-flex-row col-9 col-sm-8 pl-0 m-auto">
+        <div class="d-flex-row col-8 pl-0 m-auto">
           <p class="card-title font-weight-light mb-0" style="font-size: 15px; color: var(--red);">Submited by:</p>
           <p class="card-title font-weight-bold mb-0" style="font-size: 15px; color: var(--red);">
             ${userName.length > 22 ? `${userName.slice(0, 21)}...` : userName}
