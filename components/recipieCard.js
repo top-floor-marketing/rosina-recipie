@@ -7,7 +7,12 @@ const templateRecipieCard = ({
   userName = ''
 } = {}) => {
   return /* html */`
-  <div class="card" style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); min-height: 28rem;">
+  <div
+    class="card"
+    style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); min-height: 28rem; cursor: pointer"
+    data-toggle="modal"
+    data-target="#recipieModal"
+  >
     <img src="${picture}" class="card-img-top" />
     <div class="card-body px-2 py-3 d-flex flex-column">
       <div class="row mb-3">
