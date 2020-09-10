@@ -25,19 +25,23 @@ class ingredient extends HTMLElement {
   constructor () {
     super()
     this.state = {
+      index: 0,
       remove: false,
-      quantity: 0.25,
-      measureUnit: 'drop'
+      amount: 0.25,
+      unit: 'drop',
+      ingredient: ''
     }
 
     this.addEventListener('more-less', (event) => {
       const { currAmount } = event.detail
-      this.state.quantity = currAmount
+      this.state.amount = currAmount
+      recipeData.recipeSteps[this.state.index] = this.state
     })
 
     this.addEventListener('measure-unit', (event) => {
       const { currAmount } = event.detail
-      this.state.measureUnit = currAmount
+      this.state.unit = currAmount
+      recipeData.recipeSteps[this.state.index] = this.state
     })
 
     this.render()
@@ -53,11 +57,25 @@ class ingredient extends HTMLElement {
   listeners () {
     this.querySelector('.remove-ingredient').addEventListener('click', () => {
       this.state.remove = true
+      recipeData.recipeSteps[this.state.index] = {}
       this.render()
     })
     this.querySelector('.mat-text-field').addEventListener('change', (e) => {
       this.state.ingredient = e.target.value
+      recipeData.recipeSteps[this.state.index] = this.state
     })
+  }
+
+  connectedCallback () {
+    console.log(recipeData)
+    if (recipeData.recipeSteps.length === 0) {
+      recipeData.recipeSteps.push(this.state)
+    } else {
+      const newEntry = recipeData.recipeSteps.length
+      this.state.index = newEntry
+      recipeData.recipeSteps.push(this.state)
+      console.log(recipeData)
+    }
   }
 }
 
