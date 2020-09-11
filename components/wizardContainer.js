@@ -64,6 +64,54 @@ const wizardTemplate = ({
 </div>`
 }
 
+const globalReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_RECIPE_TITLE':
+      state.recipe.title = action.payload
+      break
+    case 'ADD_RECIPE_TYPE':
+      state.recipe.type = action.payload
+      break
+    case 'ADD_RECIPE_STEPS':
+      state.recipe.steps = action.payload
+      break
+    case 'ADD_RECIPE_INGREDIENTS':
+      state.recipe.ingredients = action.payload
+      break
+    case 'ADD_RECIPE_IMAGES':
+      state.recipe.images = action.payload
+      break
+    case 'ADD_USER_NAME':
+      state.user.name = action.payload
+      break
+    case 'ADD_USER_EMAIL':
+      state.user.email = action.payload
+      break
+    case 'ADD_USER_PICTURE':
+      state.user.picture = action.payload
+      break
+    default:
+      return state
+  }
+  console.log(state)
+  return state
+}
+
+const globalStore = Redux.createStore(globalReducer, {
+  recipe: {
+    title: '',
+    type: [],
+    steps: [],
+    images: [],
+    ingredients: []
+  },
+  user: {
+    name: '',
+    email: '',
+    picture: ''
+  }
+})
+
 class wizardContainer extends HTMLElement {
   // Fires when an instance of the element is created or updated
   constructor () {
