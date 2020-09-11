@@ -1,5 +1,6 @@
 const recipeData = {
   recipeType: [],
+  servings: 1,
   recipeSteps: []
 }
 
