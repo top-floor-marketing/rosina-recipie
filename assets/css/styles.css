@@ -355,3 +355,18 @@ input[type=number] {
   color: var(--red) !important;
   transition: all 0.2s;
 }
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Lato',sans-serif;
+}
+
+.scrollable {
+  height: 55vh;
+  overflow: auto;
+}
+
+.card-pic {
+  height: 13em;
+  object-fit: cover;
+  object-position: center;
+}

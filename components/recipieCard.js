@@ -1,6 +1,6 @@
 const templateRecipieCard = ({
   title = '',
-  picture = './assets/img/recipie-placeholder.png',
+  picture = './assets/img/carousel-placeholder.png',
   subtitle = '',
   userPicture = './assets/img/profile-placeholder.jpg',
   stars = 0,
@@ -9,11 +9,12 @@ const templateRecipieCard = ({
   return /* html */`
   <div
     class="card"
-    style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); min-height: 28rem; cursor: pointer"
+    style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); min-height: 24rem; cursor: pointer"
     data-toggle="modal"
     data-target="#recipieModal"
+    data-aos="fade-up" data-aos-delay="200"
   >
-    <img src="${picture}" class="card-img-top" />
+    <img src="${picture}" class="card-img-top card-pic" />
     <div class="card-body px-2 py-3 d-flex flex-column">
       <div class="row mb-3">
         <div class="col-8">

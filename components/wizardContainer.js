@@ -7,10 +7,10 @@ const stepTitle = (x) => {
   switch (x) {
     case 1: return 'Select a recipe category'
     case 2: return 'Your recipe ingredients'
-    case 3: return 'Step 3'
-    case 4: return 'Step 4'
-    case 5: return 'Step 5'
-    case 6: return 'Step 6'
+    case 3: return 'Your recipe steps'
+    case 4: return 'Add your recipe pictures'
+    case 5: return 'Submit Your Recipe'
+    case 6: return 'Your recipe has been submitted!'
     default: return 'no data'
   }
 }
@@ -19,10 +19,10 @@ const stepDescription = (x) => {
   switch (x) {
     case 1: return ''
     case 2: return ''
-    case 3: return 'Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.'
-    case 4: return 'Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.'
-    case 5: return 'Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.'
-    case 6: return 'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.'
+    case 3: return ''
+    case 4: return ''
+    case 5: return 'Submit your original recipe using Rosina meatballs or Celentano pasta (or both!). To submit your recipe, complete each field below and hit ‘next’ to continue. '
+    case 6: return 'Congratulations! Your recipe has been submitted and you’ve been entered to win a Williams Sonoma gift card! Check your inbox for updates on winner selection and visit rosinarecipes.com for recipe inspiration, new products, and more!'
     default: return 'no data'
   }
 }
@@ -76,7 +76,9 @@ class wizardContainer extends HTMLElement {
 
     this.querySelector('#next-step').addEventListener('click', () => {
       if (this.wizardState.currentStep === 6) {
+        $('#recipeModal').modal('hide')
         this.wizardState.currentStep = 1
+        recipeData.recipeType.length = 0
       } else {
         this.wizardState.currentStep = this.wizardState.currentStep + 1
       }
@@ -100,7 +102,9 @@ class wizardContainer extends HTMLElement {
     })
     this.querySelector('#next-step').addEventListener('click', () => {
       if (this.wizardState.currentStep === 6) {
+        $('#recipeModal').modal('hide')
         this.wizardState.currentStep = 1
+        recipeData.recipeType.length = 0
       } else {
         this.wizardState.currentStep = this.wizardState.currentStep + 1
       }

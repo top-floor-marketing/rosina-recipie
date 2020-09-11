@@ -4,13 +4,13 @@ const templateInfiniteScroll = (data) => {
   // Data transform OPTIONAL STEP
   const curedData = data.reduce((acc, recipie) => {
     acc.push({
-      images: undefined,
+      images: ['./assets/img/carousel-placeholder.jpg'],
       user: {
         name: `${recipie.name.first} ${recipie.name.last}`,
         picture: recipie.picture.large
       },
       recipie: {
-        title: recipie.email,
+        title: 'My awesome recipe',
         subtitle: '',
         stars: recipie.dob.age,
         instructions: ['This recipie has no instructions.'],
@@ -29,7 +29,7 @@ const templateInfiniteScroll = (data) => {
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-4">
         <recipie-card
           class="recipie-card-class"
-          picture='${recipie.user.picture}'
+          picture='${recipie.images[0]}'
           title='${recipie.recipie.title}'
           subtitle='${recipie.recipie.subtitle}'
           stars='${recipie.recipie.stars}'
