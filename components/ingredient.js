@@ -5,7 +5,7 @@ const mainIngredientTemplate = ({
   return /* html */ `
       <div class='row align-items-center mb-4'>
         <div class='col-md-7 col-xs-12 mb-3'>
-          <input type=text class='w-100 mat-text-field'>
+          <input type=text placeholder='Type your ingredient name' class='w-100 mat-text-field'>
         </div>
         <div class='col px-1'>
           <more-less />

@@ -17,7 +17,7 @@ const stepOneTemplate = ({
           <input onclick="addRemoveRecipeType('meatballs')" type="checkbox">
           <span class="slider round d-flex align-items-center">
             <img src="../../../assets/img/Meatballs.svg" class="img-fluid toggler" alt="">
-            <p class='in-text my-0 ml-2 font-weight-bold'>Meat Balls</p>
+            <p class='in-text my-0 ml-2 font-weight-bold'>Meatballs</p>
           </span>
         </label>
       </div>

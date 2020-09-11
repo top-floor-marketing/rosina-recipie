@@ -25,6 +25,9 @@ const unitsDropdownTemplate = () => {
             <option value='pound'>pound</option>
             <option value='gram'>gram</option>
             <option value='kilogram'>kilogram</option>
+            <option value='Bag'>Bag</option>
+            <option value='Box'>Box</option>
+            <option value='Unit'>Unit</option>
           </select>
       </div>
         `

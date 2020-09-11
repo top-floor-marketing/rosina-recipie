@@ -22,7 +22,7 @@ const stepDescription = (x) => {
     case 3: return ''
     case 4: return ''
     case 5: return 'Submit your original recipe using Rosina meatballs or Celentano pasta (or both!). To submit your recipe, complete each field below and hit ‘next’ to continue. '
-    case 6: return 'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.'
+    case 6: return 'Congratulations! Your recipe has been submitted and you’ve been entered to win a Williams Sonoma gift card! Check your inbox for updates on winner selection and visit rosinarecipes.com for recipe inspiration, new products, and more!'
     default: return 'no data'
   }
 }
@@ -76,7 +76,9 @@ class wizardContainer extends HTMLElement {
 
     this.querySelector('#next-step').addEventListener('click', () => {
       if (this.wizardState.currentStep === 6) {
+        $('#recipeModal').modal('hide')
         this.wizardState.currentStep = 1
+        recipeData.recipeType.length = 0
       } else {
         this.wizardState.currentStep = this.wizardState.currentStep + 1
       }
@@ -100,7 +102,9 @@ class wizardContainer extends HTMLElement {
     })
     this.querySelector('#next-step').addEventListener('click', () => {
       if (this.wizardState.currentStep === 6) {
+        $('#recipeModal').modal('hide')
         this.wizardState.currentStep = 1
+        recipeData.recipeType.length = 0
       } else {
         this.wizardState.currentStep = this.wizardState.currentStep + 1
       }

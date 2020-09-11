@@ -10,7 +10,7 @@ const templateInfiniteScroll = (data) => {
         picture: recipie.picture.large
       },
       recipie: {
-        title: recipie.email,
+        title: 'My awesome recipe',
         subtitle: '',
         stars: recipie.dob.age,
         instructions: ['This recipie has no instructions.'],
