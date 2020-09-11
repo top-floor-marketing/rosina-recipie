@@ -1,8 +1,8 @@
-const stepSixTemplate = ({
-  testProp = 'test'
-} = {}) => {
-  return `
-      <p class='animate__animated animate__fadeInUp'>Step 6</p>
+const stepSixTemplate = () => {
+  return /* html */ `
+      <div class='text-center'>
+        <img src="./assets/img/success-plate.jpg" class="img-fluid" alt="">
+      </div>
       `
 }
 
@@ -11,14 +11,7 @@ class stepSix extends HTMLElement {
   constructor () {
     super()
 
-    const props = ['testProp']
-    // Get all the props
-    const templateProps = props.reduce((acc, prop) => {
-      acc[prop] = this.getAttribute(prop) ? this.getAttribute(prop) : undefined
-      return acc
-    }, {})
-
-    this.innerHTML = stepSixTemplate(templateProps)
+    this.innerHTML = stepSixTemplate()
   }
 }
 

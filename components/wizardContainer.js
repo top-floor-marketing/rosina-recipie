@@ -149,7 +149,6 @@ class wizardContainer extends HTMLElement {
     this.wizardState = {
       currentStep: 1
     }
-
     this.update()
   }
 
