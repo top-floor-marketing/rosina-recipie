@@ -343,3 +343,15 @@ input[type=number] {
     width: 100%;
   }
 }
+
+.hoverable-trash {
+  opacity: 0.7;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hoverable-trash:hover {
+  opacity: 1;
+  color: var(--red) !important;
+  transition: all 0.2s;
+}
