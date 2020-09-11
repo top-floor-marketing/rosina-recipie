@@ -51,28 +51,11 @@ const inputStep = () => {
   `
 }
 
-const stepReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_STEP':
-      state.steps.push(action.payload)
-      break
-    case 'REMOVE_STEP':
-      state.steps.splice(action.payload, 1)
-      break
-    case 'SET_CURRENT':
-      state.index.current = action.payload
-      break
-    case 'MOVE_STEP':
-      state.steps.splice(action.payload.to, 0, state.steps.splice(state.index.current, 1)[0])
-  }
-  return state
-}
-
 class stepThree extends HTMLElement {
   constructor () {
     super()
     // define store
-    this.state = Redux.createStore(stepReducer, {
+    this.state = Redux.createStore(this.reducer, {
       index: { current: null },
       steps: []
     })
@@ -93,6 +76,23 @@ class stepThree extends HTMLElement {
 
   disconnectedCallback () {
     this.subscription()
+  }
+
+  reducer (state, action) {
+    switch (action.type) {
+      case 'ADD_STEP':
+        state.steps.push(action.payload)
+        break
+      case 'REMOVE_STEP':
+        state.steps.splice(action.payload, 1)
+        break
+      case 'SET_CURRENT':
+        state.index.current = action.payload
+        break
+      case 'MOVE_STEP':
+        state.steps.splice(action.payload.to, 0, state.steps.splice(state.index.current, 1)[0])
+    }
+    return state
   }
 
   render () {
