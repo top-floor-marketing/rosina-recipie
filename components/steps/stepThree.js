@@ -78,6 +78,7 @@ class stepThree extends HTMLElement {
     })
 
     this.previousValue = []
+    this.nextListener = false
 
     // Re render on store change
     this.subscription = this.state.subscribe(() => {
@@ -98,6 +99,18 @@ class stepThree extends HTMLElement {
     this.innerHTML = steps(this.state.getState().steps)
     this.innerHTML += inputStep()
 
+    // add sortability in each render
+    $('#sortable').sortable({
+      start: (e, ui) => {
+        const currentIndex = ui.item.index()
+        this.state.dispatch({ type: 'SET_CURRENT', payload: currentIndex })
+      },
+      update: (e, ui) => {
+        var newIndex = ui.item.index()
+        this.state.dispatch({ type: 'MOVE_STEP', payload: { to: newIndex } })
+      }
+    })
+
     // Add listener to add a step button
     const addStep = this.querySelector('#addStep')
     const stepInput = this.querySelector('#newStep')
@@ -113,17 +126,14 @@ class stepThree extends HTMLElement {
       this.state.dispatch({ type: 'REMOVE_STEP', payload: e.target.getAttribute('index') })
     }))
 
-    // add sortability in each render
-    $('#sortable').sortable({
-      start: (e, ui) => {
-        const currentIndex = ui.item.index()
-        this.state.dispatch({ type: 'SET_CURRENT', payload: currentIndex })
-      },
-      update: (e, ui) => {
-        var newIndex = ui.item.index()
-        this.state.dispatch({ type: 'MOVE_STEP', payload: { to: newIndex } })
-      }
-    })
+    if (!this.nextListener) {
+      // Listen to the next action
+      const next = document.querySelector('#next-step')
+      next.addEventListener('click', () => {
+        globalStore.dispatch({ type: 'ADD_RECIPE_STEPS', payload: this.state.getState().steps })
+      })
+      this.nextListener = true
+    }
   }
 }
 
