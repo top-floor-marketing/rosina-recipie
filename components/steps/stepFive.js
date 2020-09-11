@@ -21,7 +21,7 @@ const emptyTemplatePic = () => {
 
 const stepFiveTemplate = (x) => {
   return /* html */`
-      <div class='row'>
+      <div class='row animate__fadeInUp'>
         <div class='col-12 col-md-6'>
         <input id='recipeName' type='text' value='${x.recipeName}' placeholder='My awesome recipe name' class='w-100 mat-text-field mb-3'>
         <input id='userName' type='text' value='${x.userName}' placeholder='Full name' class='w-100 mat-text-field mb-3'>
@@ -81,6 +81,18 @@ class stepFive extends HTMLElement {
 
   disconnectedCallback () {
     this.subscription()
+  }
+
+  connectedCallback () {
+    // Animation rerender fix
+    this.querySelectorAll('.animate__fadeInUp').forEach(e => {
+      e.classList.add('animate__animated')
+    })
+    this.querySelectorAll('.animate__animated').forEach(element => {
+      element.addEventListener('animationend', (e) => {
+        e.target.classList.remove('animate__animated')
+      })
+    })
   }
 
   showImage (file) {

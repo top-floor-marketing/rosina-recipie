@@ -1,11 +1,9 @@
-const stepOneTemplate = ({
-  testProp = 'test'
-} = {}) => {
+const stepOneTemplate = (x) => {
   return /* html */ `
-    <div class='row animate__animated animate__fadeInUp'>
+    <div class='row animate__fadeInUp'>
       <div class='col-md-6 text-right responsive-align-center'>
         <label class="switch pasta">
-          <input onclick="addRemoveRecipeType('pasta')" type="checkbox">
+          <input name='pasta' id='pasta' type="checkbox" ${x.includes('pasta') ? 'checked' : ''}>
           <span class="slider round d-flex align-items-center">
             <img src="../../../assets/img/Fork.svg" class="img-fluid toggler" alt="">
             <p class='in-text my-0 ml-2 font-weight-bold'>Pasta</p>
@@ -14,7 +12,7 @@ const stepOneTemplate = ({
       </div>
       <div class='col-md-6 text-left responsive-align-center'>
         <label class="switch meatballs">
-          <input onclick="addRemoveRecipeType('meatballs')" type="checkbox">
+          <input name='meatballs' id='meatballs' type="checkbox" ${x.includes('meatballs') ? 'checked' : ''}>
           <span class="slider round d-flex align-items-center">
             <img src="../../../assets/img/Meatballs.svg" class="img-fluid toggler" alt="">
             <p class='in-text my-0 ml-2 font-weight-bold'>Meatballs</p>
@@ -25,37 +23,88 @@ const stepOneTemplate = ({
     `
 }
 
-const addRemoveRecipeType = (type) => {
-  if (recipeData.recipeType.find(x => x === type)) {
-    const newRecipeType = recipeData.recipeType.filter(e => { return e !== type })
-    recipeData.recipeType = newRecipeType
-    if (recipeData.recipeType.length === 0) {
-      document.querySelector('#next-step').disabled = true
-    } else {
-      document.querySelector('#next-step').disabled = false
-    }
-  } else {
-    recipeData.recipeType.push(type)
-    document.querySelector('#next-step').disabled = false
-  }
-}
-
 class stepOne extends HTMLElement {
   // Fires when an instance of the element is created or updated
   constructor () {
     super()
-    const props = ['testProp']
-    // Get all the props
-    const templateProps = props.reduce((acc, prop) => {
-      acc[prop] = this.getAttribute(prop) ? this.getAttribute(prop) : undefined
-      return acc
-    }, {})
+    this.nextListener = false
+    this.state = Redux.createStore(this.reducer, [])
+    this.subscription = this.state.subscribe(() => this.render())
+    this.render()
+  }
 
-    this.innerHTML = stepOneTemplate(templateProps)
+  reducer (state, action) {
+    switch (action.type) {
+      case 'ADD_RECIPE_TYPE':
+        state.push(action.payload)
+        break
+      case 'REMOVE_RECIPE_TYPE':
+        state = state.filter(x => x !== action.payload)
+        break
+      default:
+        return state
+    }
+    return state
+  }
+
+  disconnectedCallback () {
+    this.subscription()
   }
 
   connectedCallback () {
+    // disable next
     document.querySelector('#next-step').disabled = true
+
+    // Animation rerender fix
+    this.querySelectorAll('.animate__fadeInUp').forEach(e => {
+      e.classList.add('animate__animated')
+    })
+    this.querySelectorAll('.animate__animated').forEach(element => {
+      element.addEventListener('animationend', (e) => {
+        e.target.classList.remove('animate__animated')
+      })
+    })
+  }
+
+  render () {
+    const state = this.state.getState()
+    this.innerHTML = stepOneTemplate(state)
+    if (state.length) {
+      document.querySelector('#next-step').disabled = false
+    } else {
+      document.querySelector('#next-step').disabled = true
+    }
+
+    // Selectors
+    const meatballs = this.querySelector('#meatballs')
+    const pasta = this.querySelector('#pasta')
+
+    // event lsiteners
+    meatballs.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        this.state.dispatch({ type: 'ADD_RECIPE_TYPE', payload: e.target.name })
+      } else {
+        this.state.dispatch({ type: 'REMOVE_RECIPE_TYPE', payload: e.target.name })
+      }
+    })
+
+    pasta.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        this.state.dispatch({ type: 'ADD_RECIPE_TYPE', payload: e.target.name })
+      } else {
+        this.state.dispatch({ type: 'REMOVE_RECIPE_TYPE', payload: e.target.name })
+      }
+    })
+
+    // Listen for next step click
+    if (!this.nextListener) {
+      // Listen to the next action
+      const next = document.querySelector('#next-step')
+      next.addEventListener('click', () => {
+        globalStore.dispatch({ type: 'ADD_RECIPE_TYPE', payload: state })
+      })
+      this.nextListener = true
+    }
   }
 }
 

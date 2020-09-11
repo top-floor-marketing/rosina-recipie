@@ -2,7 +2,7 @@ const steps = (steps) => {
   let finalSteps = ''
   steps.forEach((step, index) => {
     finalSteps += /* html */`
-      <div class="row my-3 animate__animated animate__fadeInUp">
+      <div class="row my-3 animate__fadeInUp">
         <div class="col-10">
           <p class="m-0 text-break" style="border-bottom: 1px solid #C6C6C6;">${step}</p>
         </div>
@@ -76,6 +76,18 @@ class stepThree extends HTMLElement {
 
   disconnectedCallback () {
     this.subscription()
+  }
+
+  connectedCallback () {
+    // Animation rerender fix
+    this.querySelectorAll('.animate__fadeInUp').forEach(e => {
+      e.classList.add('animate__animated')
+    })
+    this.querySelectorAll('.animate__animated').forEach(element => {
+      element.addEventListener('animationend', (e) => {
+        e.target.classList.remove('animate__animated')
+      })
+    })
   }
 
   reducer (state, action) {

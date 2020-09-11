@@ -15,7 +15,7 @@ const fileInput = (files) => {
 
 const fileUploadComponent = () => {
   return /* html */`
-    <div class="col-4 col-md-3 col-lg-2 px-1">
+    <div class="col-4 col-md-3 col-lg-2 px-1 animate__fadeInUp">
       <div
         class="d-flex justify-content-center align-items-center mx-auto"
         style="height: 6rem; width: 6rem; border: 1px var(--green) dashed; cursor: pointer;"
@@ -56,6 +56,18 @@ class stepFour extends HTMLElement {
 
   disconnectedCallback () {
     this.subscription()
+  }
+
+  connectedCallback () {
+    // Animation rerender fix
+    this.querySelectorAll('.animate__fadeInUp').forEach(e => {
+      e.classList.add('animate__animated')
+    })
+    this.querySelectorAll('.animate__animated').forEach(element => {
+      element.addEventListener('animationend', (e) => {
+        e.target.classList.remove('animate__animated')
+      })
+    })
   }
 
   showImage (files) {
