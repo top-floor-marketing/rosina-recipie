@@ -76,7 +76,6 @@ class stepFour extends HTMLElement {
 
   render () {
     const state = this.store.getState()
-    console.log(state)
 
     this.innerHTML = /* html */`
       <div class="row">
@@ -105,6 +104,15 @@ class stepFour extends HTMLElement {
 
     // Make sure the images render as expected
     this.showImage(state)
+
+    if (!this.nextListener) {
+      // Listen to the next action
+      const next = document.querySelector('#next-step')
+      next.addEventListener('click', () => {
+        globalStore.dispatch({ type: 'ADD_RECIPE_IMAGES', payload: state })
+      })
+      this.nextListener = true
+    }
   }
 }
 

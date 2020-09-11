@@ -51,33 +51,17 @@ const inputStep = () => {
   `
 }
 
-const stepReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_STEP':
-      state.steps.push(action.payload)
-      break
-    case 'REMOVE_STEP':
-      state.steps.splice(action.payload, 1)
-      break
-    case 'SET_CURRENT':
-      state.index.current = action.payload
-      break
-    case 'MOVE_STEP':
-      state.steps.splice(action.payload.to, 0, state.steps.splice(state.index.current, 1)[0])
-  }
-  return state
-}
-
 class stepThree extends HTMLElement {
   constructor () {
     super()
     // define store
-    this.state = Redux.createStore(stepReducer, {
+    this.state = Redux.createStore(this.reducer, {
       index: { current: null },
       steps: []
     })
 
     this.previousValue = []
+    this.nextListener = false
 
     // Re render on store change
     this.subscription = this.state.subscribe(() => {
@@ -94,9 +78,38 @@ class stepThree extends HTMLElement {
     this.subscription()
   }
 
+  reducer (state, action) {
+    switch (action.type) {
+      case 'ADD_STEP':
+        state.steps.push(action.payload)
+        break
+      case 'REMOVE_STEP':
+        state.steps.splice(action.payload, 1)
+        break
+      case 'SET_CURRENT':
+        state.index.current = action.payload
+        break
+      case 'MOVE_STEP':
+        state.steps.splice(action.payload.to, 0, state.steps.splice(state.index.current, 1)[0])
+    }
+    return state
+  }
+
   render () {
     this.innerHTML = steps(this.state.getState().steps)
     this.innerHTML += inputStep()
+
+    // add sortability in each render
+    $('#sortable').sortable({
+      start: (e, ui) => {
+        const currentIndex = ui.item.index()
+        this.state.dispatch({ type: 'SET_CURRENT', payload: currentIndex })
+      },
+      update: (e, ui) => {
+        var newIndex = ui.item.index()
+        this.state.dispatch({ type: 'MOVE_STEP', payload: { to: newIndex } })
+      }
+    })
 
     // Add listener to add a step button
     const addStep = this.querySelector('#addStep')
@@ -113,17 +126,14 @@ class stepThree extends HTMLElement {
       this.state.dispatch({ type: 'REMOVE_STEP', payload: e.target.getAttribute('index') })
     }))
 
-    // add sortability in each render
-    $('#sortable').sortable({
-      start: (e, ui) => {
-        const currentIndex = ui.item.index()
-        this.state.dispatch({ type: 'SET_CURRENT', payload: currentIndex })
-      },
-      update: (e, ui) => {
-        var newIndex = ui.item.index()
-        this.state.dispatch({ type: 'MOVE_STEP', payload: { to: newIndex } })
-      }
-    })
+    if (!this.nextListener) {
+      // Listen to the next action
+      const next = document.querySelector('#next-step')
+      next.addEventListener('click', () => {
+        globalStore.dispatch({ type: 'ADD_RECIPE_STEPS', payload: this.state.getState().steps })
+      })
+      this.nextListener = true
+    }
   }
 }
 

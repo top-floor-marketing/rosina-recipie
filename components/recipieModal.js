@@ -10,7 +10,7 @@ const recipieModalDefaultData = {
   recipie: {
     title: '',
     stars: 0,
-    instructions: ['This recipie has no instructions.'],
+    steps: ['This recipie has no instructions.'],
     ingredients: [{
       ingredient: 'This recipie has no ingredients',
       amount: 0,
@@ -78,11 +78,11 @@ class RecipieModal extends HTMLElement {
 
   instructions () {
     let finalInstructions = ''
-    const { instructions = recipieModalDefaultData.recipie.instructions } = this.data
-    instructions.forEach(instruction => {
+    const { steps = recipieModalDefaultData.recipie.steps } = this.data
+    steps.forEach(step => {
       finalInstructions += /* html */`
         <p class="font-weight-bold" style="font-size: 14px">
-          ${instruction}
+          ${step}
         </p>
       `
     })

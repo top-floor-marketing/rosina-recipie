@@ -13,7 +13,7 @@ const templateInfiniteScroll = (data) => {
         title: 'My awesome recipe',
         subtitle: '',
         stars: recipie.dob.age,
-        instructions: ['This recipie has no instructions.'],
+        steps: ['This recipie has no instructions.'],
         ingredients: [{
           ingredient: 'This recipie has no ingredients',
           amount: 0,
