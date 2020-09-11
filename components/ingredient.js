@@ -36,12 +36,16 @@ class ingredient extends HTMLElement {
       const { currAmount } = event.detail
       this.state.amount = currAmount
       recipeData.recipeSteps[this.state.index] = this.state
+      const { index, amount, unit, ingredient } = this.state
+      globalStore.dispatch({ type: 'ADD_RECIPE_INGREDIENT', payload: { index, amount, unit, ingredient } })
     })
 
     this.addEventListener('measure-unit', (event) => {
       const { currAmount } = event.detail
       this.state.unit = currAmount
       recipeData.recipeSteps[this.state.index] = this.state
+      const { index, amount, unit, ingredient } = this.state
+      globalStore.dispatch({ type: 'ADD_RECIPE_INGREDIENT', payload: { index, amount, unit, ingredient } })
     })
 
     this.render()
@@ -58,23 +62,28 @@ class ingredient extends HTMLElement {
     this.querySelector('.remove-ingredient').addEventListener('click', () => {
       this.state.remove = true
       recipeData.recipeSteps[this.state.index] = {}
+      globalStore.dispatch({ type: 'REMOVE_RECIPE_INGREDIENT', payload: this.state.index })
       this.render()
     })
     this.querySelector('.mat-text-field').addEventListener('change', (e) => {
       this.state.ingredient = e.target.value
       recipeData.recipeSteps[this.state.index] = this.state
+      const { index, amount, unit, ingredient } = this.state
+      globalStore.dispatch({ type: 'ADD_RECIPE_INGREDIENT', payload: { index, amount, unit, ingredient } })
     })
   }
 
   connectedCallback () {
-    console.log(recipeData)
     if (recipeData.recipeSteps.length === 0) {
       recipeData.recipeSteps.push(this.state)
+      const { index, amount, unit, ingredient } = this.state
+      globalStore.dispatch({ type: 'ADD_RECIPE_INGREDIENT', payload: { index, amount, unit, ingredient } })
     } else {
       const newEntry = recipeData.recipeSteps.length
       this.state.index = newEntry
       recipeData.recipeSteps.push(this.state)
-      console.log(recipeData)
+      const { index, amount, unit, ingredient } = this.state
+      globalStore.dispatch({ type: 'ADD_RECIPE_INGREDIENT', payload: { index, amount, unit, ingredient } })
     }
   }
 }

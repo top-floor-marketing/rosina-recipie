@@ -76,11 +76,19 @@ const globalReducer = (state, action) => {
     case 'ADD_RECIPE_STEPS':
       state.recipe.steps = action.payload
       break
-    case 'ADD_RECIPE_INGREDIENTS':
-      state.recipe.ingredients = action.payload
+    case 'ADD_RECIPE_INGREDIENT': {
+      const { index, ...rest } = action.payload
+      state.recipe.ingredients[index] = { ...state.recipe.ingredients[index], ...rest }
+      break
+    }
+    case 'REMOVE_RECIPE_INGREDIENT':
+      state.recipe.ingredients.splice(action.payload, 1)
       break
     case 'ADD_RECIPE_IMAGES':
       state.recipe.images = action.payload
+      break
+    case 'ADD_RECIPE_SERVINGS':
+      state.recipe.servings = action.payload
       break
     case 'ADD_USER_NAME':
       state.user.name = action.payload
@@ -91,11 +99,31 @@ const globalReducer = (state, action) => {
     case 'ADD_USER_PICTURE':
       state.user.picture = action.payload
       break
+    case 'RESET_STORE':
+      console.log(action.payload)
+      state = action.payload
+      break
     default:
       return state
   }
   console.log(state)
   return state
+}
+
+const initialState = {
+  recipe: {
+    title: '',
+    type: [],
+    steps: [],
+    images: [],
+    ingredients: [],
+    servings: 0
+  },
+  user: {
+    name: '',
+    email: '',
+    picture: ''
+  }
 }
 
 const globalStore = Redux.createStore(globalReducer, {
@@ -104,7 +132,8 @@ const globalStore = Redux.createStore(globalReducer, {
     type: [],
     steps: [],
     images: [],
-    ingredients: []
+    ingredients: [],
+    servings: 0
   },
   user: {
     name: '',
@@ -121,25 +150,7 @@ class wizardContainer extends HTMLElement {
       currentStep: 1
     }
 
-    this.innerHTML = wizardTemplate(this.wizardState)
-
-    this.querySelector('#next-step').addEventListener('click', () => {
-      if (this.wizardState.currentStep === 6) {
-        $('#recipeModal').modal('hide')
-        this.wizardState.currentStep = 1
-        recipeData.recipeType.length = 0
-      } else {
-        this.wizardState.currentStep = this.wizardState.currentStep + 1
-      }
-      this.update()
-    })
-
-    document.querySelector('#cancel-modal').addEventListener('click', () => {
-      this.wizardState.currentStep = 1
-      recipeData.recipeType.length = 0
-      this.innerHTML = wizardTemplate(this.wizardState)
-      this.update()
-    })
+    this.update()
   }
 
   update () {
@@ -147,6 +158,7 @@ class wizardContainer extends HTMLElement {
     document.querySelector('#cancel-modal').addEventListener('click', () => {
       this.wizardState.currentStep = 1
       recipeData.recipeType.length = 0
+      globalStore.dispatch({ type: 'RESET_STORE', payload: initialState })
       this.update()
     })
     this.querySelector('#next-step').addEventListener('click', () => {
