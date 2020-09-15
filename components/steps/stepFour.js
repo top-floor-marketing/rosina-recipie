@@ -17,12 +17,13 @@ const fileUploadComponent = () => {
   return /* html */`
     <div class="col-4 col-md-3 col-lg-2 px-1 animate__fadeInUp">
       <div
-        class="d-flex justify-content-center align-items-center mx-auto"
+        class="d-flex justify-content-center align-items-center mx-auto flex-column text-center"
         style="height: 6rem; width: 6rem; border: 1px var(--green) dashed; cursor: pointer;"
         id="fileInput"
       >
         <input type='file' class="d-none" /> 
         <i class="fas fa-plus" style="color: var(--green); font-size: 2rem"></i>
+        <p class='mb-0' style='font-size:12px;'>click to upload</p>
       </div>
     </div>
   `

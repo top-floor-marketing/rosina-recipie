@@ -31,7 +31,7 @@ const inputStep = () => {
           id="newStep"
           class="w-100 border-top-0 border-left-0 border-right-0"
           style="border-bottom: 1px solid #C6C6C6;"
-          placeholder="Please describe the steps to reproduce your recipe"
+          placeholder="Add Your Cooking Instructions Step - by - Step Here"
         >
       </div>
     </div>

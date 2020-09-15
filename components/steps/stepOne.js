@@ -1,21 +1,21 @@
 const stepOneTemplate = (x) => {
   return /* html */ `
     <div class='row animate__fadeInUp'>
-      <div class='col-md-6 text-right responsive-align-center'>
+      <div class='col-md-6 text-right responsive-align-center my-5'>
         <label class="switch pasta">
           <input name='pasta' id='pasta' type="checkbox" ${x.includes('pasta') ? 'checked' : ''}>
-          <span class="slider round d-flex align-items-center">
-            <img src="../../../assets/img/Fork.svg" class="img-fluid toggler" alt="">
-            <p class='in-text my-0 ml-2 font-weight-bold'>Pasta</p>
+          <span class="slider round d-flex align-items-center pasta">
+            <img src="../../../assets/img/Cheese-Tortellini.png" class="img-fluid toggler" alt="">
+            <p class='in-text my-0 ml-2 font-weight-bold'>Celentano Pasta</p>
           </span>
         </label>
       </div>
-      <div class='col-md-6 text-left responsive-align-center'>
+      <div class='col-md-6 text-left responsive-align-center my-5'>
         <label class="switch meatballs">
           <input name='meatballs' id='meatballs' type="checkbox" ${x.includes('meatballs') ? 'checked' : ''}>
           <span class="slider round d-flex align-items-center">
-            <img src="../../../assets/img/Meatballs.svg" class="img-fluid toggler" alt="">
-            <p class='in-text my-0 ml-2 font-weight-bold'>Meatballs</p>
+            <img src="../../../assets/img/Meatballs.png" class="img-fluid toggler" alt="">
+            <p class='in-text my-0 ml-2 font-weight-bold'>Rosina Meatballs</p>
           </span>
         </label>
       </div>

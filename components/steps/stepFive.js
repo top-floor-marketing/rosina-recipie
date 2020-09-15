@@ -23,9 +23,11 @@ const stepFiveTemplate = (x) => {
   return /* html */`
       <div class='row animate__fadeInUp'>
         <div class='col-12 col-md-6'>
-        <input id='recipeName' type='text' value='${x.recipeName}' placeholder='My awesome recipe name' class='w-100 mat-text-field mb-3'>
-        <input id='userName' type='text' value='${x.userName}' placeholder='Full name' class='w-100 mat-text-field mb-3'>
-        <input id='userEmail' type='email' value='${x.userEmail}' placeholder='email' class='w-100 mat-text-field mb-3'>
+        <input id='recipeName' type='text' value='${x.recipeName}' placeholder='Recipe Name' class='w-100 mat-text-field mb-3'>
+        <input id='userFirstName' type='text' value='${x.userFirstName}' placeholder='Your First Name' class='w-100 mat-text-field mb-3'>
+        <input id='userLastName' type='text' value='${x.userLastName}' placeholder='Your Last Name' class='w-100 mat-text-field mb-3'>
+        <input id='userEmail' type='email' value='${x.userEmail}' placeholder='Email Address' class='w-100 mat-text-field mb-3'>
+        <input id='userPhone' type='text' value='${x.phone}' placeholder='Phone Number' class='w-100 mat-text-field mb-3'>
         </div>
         <div class='col-12 col-md-6 text-center'>
           ${
@@ -45,8 +47,10 @@ class stepFive extends HTMLElement {
     super()
     this.state = Redux.createStore(this.reducer, {
       recipeName: '',
-      userName: '',
+      userFirstName: '',
+      userLastName: '',
       userEmail: '',
+      phone: '',
       userPicture: null
     })
 
@@ -57,14 +61,20 @@ class stepFive extends HTMLElement {
 
   reducer (state, action) {
     switch (action.type) {
-      case 'UPDATE_USER_NAME':
-        state.userName = action.payload
+      case 'UPDATE_USER_FIRST_NAME':
+        state.userFirstName = action.payload
         break
       case 'UPDATE_RECIPE_NAME':
         state.recipeName = action.payload
         break
+      case 'UPDATE_USER_LAST_NAME':
+        state.userLastName = action.payload
+        break
       case 'UPDATE_USER_EMAIL':
         state.userEmail = action.payload
+        break
+      case 'UPDATE_USER_PHONE':
+        state.phone = action.payload
         break
       case 'UPDATE_USER_PICTURE':
         state.userPicture = action.payload
@@ -120,8 +130,10 @@ class stepFive extends HTMLElement {
     const placeholder = this.querySelector('#fileInput')
     const trash = this.querySelector('.hoverable-trash')
     const userEmail = this.querySelector('#userEmail')
-    const userName = this.querySelector('#userName')
+    const userFirstName = this.querySelector('#userFirstName')
+    const userLastName = this.querySelector('#userLastName')
     const recipeName = this.querySelector('#recipeName')
+    const userPhone = this.querySelector('#userPhone')
 
     // Placeholder Click
     if (placeholder) {
@@ -148,8 +160,18 @@ class stepFive extends HTMLElement {
     })
 
     // User name event listener
-    userName.addEventListener('change', (e) => {
-      this.state.dispatch({ type: 'UPDATE_USER_NAME', payload: e.target.value })
+    userFirstName.addEventListener('change', (e) => {
+      this.state.dispatch({ type: 'UPDATE_USER_FIRST_NAME', payload: e.target.value })
+    })
+
+    // User Phone event listener
+    userPhone.addEventListener('change', (e) => {
+      this.state.dispatch({ type: 'UPDATE_USER_PHONE', payload: e.target.value })
+    })
+
+    // User name event listener
+    userLastName.addEventListener('change', (e) => {
+      this.state.dispatch({ type: 'UPDATE_USER_LAST_NAME', payload: e.target.value })
     })
 
     // Recipe name event listener
@@ -163,9 +185,11 @@ class stepFive extends HTMLElement {
       const next = document.querySelector('#next-step')
       next.addEventListener('click', () => {
         globalStore.dispatch({ type: 'ADD_RECIPE_TITLE', payload: state.recipeName })
-        globalStore.dispatch({ type: 'ADD_USER_NAME', payload: state.userName })
+        globalStore.dispatch({ type: 'ADD_USER_FIRST_NAME', payload: state.userFirstName })
+        globalStore.dispatch({ type: 'ADD_USER_LAST_NAME', payload: state.userLastName })
         globalStore.dispatch({ type: 'ADD_USER_EMAIL', payload: state.userEmail })
         globalStore.dispatch({ type: 'ADD_USER_PICTURE', payload: state.userPicture })
+        globalStore.dispatch({ type: 'ADD_USER_PHONE', payload: state.phone })
       })
       this.nextListener = true
     }

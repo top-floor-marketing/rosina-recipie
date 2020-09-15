@@ -7,9 +7,9 @@ const recipeData = {
 const stepTitle = (x) => {
   switch (x) {
     case 1: return 'Select a recipe category'
-    case 2: return 'Your recipe ingredients'
-    case 3: return 'Your recipe steps'
-    case 4: return 'Add your recipe pictures'
+    case 2: return 'Add Your Recipe Ingredients'
+    case 3: return 'Add Your Recipe Cooking Instructions'
+    case 4: return 'Upload Your Recipe Picture!'
     case 5: return 'Submit Your Recipe'
     case 6: return 'Your recipe has been submitted!'
     default: return 'no data'
@@ -40,6 +40,19 @@ const currentStepComponent = (x) => {
   }
 }
 
+const backOrCancel = (currentStep) => {
+  if (currentStep === 1) {
+    return `<button data-toggle="modal" id='cancel-modal' data-target="#recipeModal" type="button" class="btn text-white rounded-pill mr-3 py-2 px-4 mb-2 position-absolute" style="left: 10px; background-color: var(--red)">
+    Cancel
+  </button>`
+  } else {
+    return `<button type="button" id='back-button' class="btn text-white rounded-pill mr-3 py-2 px-4 mb-2 position-absolute" style="left: 10px; background-color: var(--red)">
+    Back
+  </button>
+  `
+  }
+}
+
 const wizardTemplate = ({
   currentStep,
   disableNext
@@ -54,12 +67,10 @@ const wizardTemplate = ({
       ${currentStepComponent(currentStep)}
     </div>
     <div class="modal-footer border-0">
-        <button data-toggle="modal" id='cancel-modal' data-target="#recipeModal" type="button" class="btn text-white rounded-pill mr-3 py-2 px-4 mb-2 position-absolute" style="left: 10px; background-color: var(--red)">
-            Cancel
-        </button>
-        <button id='next-step' type="button" class="btn text-white rounded-pill py-2 px-4 mb-2" style="background-color: var(--green)">
-            Next
-        </button>
+      ${backOrCancel(currentStep)}
+      <button id='next-step' type="button" class="btn text-white rounded-pill py-2 px-4 mb-2" style="background-color: var(--green)">
+          Next
+      </button>
     </div>
   </div>
 </div>`
@@ -90,8 +101,14 @@ const globalReducer = (state, action) => {
     case 'ADD_RECIPE_SERVINGS':
       state.recipe.servings = action.payload
       break
-    case 'ADD_USER_NAME':
-      state.user.name = action.payload
+    case 'ADD_USER_FIRST_NAME':
+      state.user.firstName = action.payload
+      break
+    case 'ADD_USER_LAST_NAME':
+      state.user.lastName = action.payload
+      break
+    case 'ADD_USER_PHONE':
+      state.user.phone = action.payload
       break
     case 'ADD_USER_EMAIL':
       state.user.email = action.payload
@@ -100,8 +117,22 @@ const globalReducer = (state, action) => {
       state.user.picture = action.payload
       break
     case 'RESET_STORE':
-      console.log(action.payload)
       state = action.payload
+      break
+    case 'RESET_INGREDIENTS':
+      state.recipe.ingredients = action.payload
+      break
+    case 'RESET_STEPS':
+      state.recipe.steps = action.payload
+      break
+    case 'RESET_PICTURES':
+      state.recipe.images = action.payload
+      break
+    case 'RESET_PERSONAL_INFO':
+      state.user = action.payload
+      break
+    case 'RESET_RECIPE_SERVINGS':
+      state.recipe.servings = action.payload
       break
     default:
       return state
@@ -120,8 +151,10 @@ const initialState = {
     servings: 0
   },
   user: {
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
+    phone: '',
     picture: ''
   }
 }
@@ -136,8 +169,10 @@ const globalStore = Redux.createStore(globalReducer, {
     servings: 0
   },
   user: {
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
+    phone: '',
     picture: ''
   }
 })
@@ -154,21 +189,66 @@ class wizardContainer extends HTMLElement {
 
   update () {
     this.innerHTML = wizardTemplate(this.wizardState)
-    document.querySelector('#cancel-modal').addEventListener('click', () => {
-      this.wizardState.currentStep = 1
-      recipeData.recipeType.length = 0
-      globalStore.dispatch({ type: 'RESET_STORE', payload: initialState })
-      this.update()
-    })
+    if (document.querySelector('#cancel-modal')) {
+      document.querySelector('#cancel-modal').addEventListener('click', () => {
+        this.wizardState.currentStep = 1
+        recipeData.recipeType.length = 0
+        globalStore.dispatch({ type: 'RESET_STORE', payload: initialState })
+        this.update()
+      })
+    }
+    if (document.querySelector('#back-button')) {
+      document.querySelector('#back-button').addEventListener('click', () => {
+        const newCurStep = this.wizardState.currentStep = this.wizardState.currentStep - 1
+        if (newCurStep === 1) {
+          globalStore.dispatch({ type: 'RESET_INGREDIENTS', payload: [] })
+          globalStore.dispatch({ type: 'RESET_RECIPE_SERVINGS', payload: 0 })
+        } else if (newCurStep === 2) {
+          globalStore.dispatch({ type: 'RESET_INGREDIENTS', payload: [] })
+          globalStore.dispatch({ type: 'RESET_RECIPE_SERVINGS', payload: 0 })
+          globalStore.dispatch({ type: 'RESET_STEPS', payload: [] })
+        } else if (newCurStep === 3) {
+          globalStore.dispatch({ type: 'RESET_STEPS', payload: [] })
+          globalStore.dispatch({ type: 'RESET_PICTURES', payload: [] })
+        } else if (newCurStep === 4) {
+          globalStore.dispatch({ type: 'RESET_PICTURES', payload: [] })
+          globalStore.dispatch({
+            type: 'RESET_PERSONAL_INFO',
+            payload: {
+              firstName: '',
+              lastName: '',
+              email: '',
+              phone: '',
+              picture: ''
+            }
+          })
+        } else if (newCurStep === 5) {
+          globalStore.dispatch({
+            type: 'RESET_PERSONAL_INFO',
+            payload: {
+              firstName: '',
+              lastName: '',
+              email: '',
+              phone: '',
+              picture: ''
+            }
+          })
+        }
+        this.update()
+      })
+    }
     this.querySelector('#next-step').addEventListener('click', () => {
       if (this.wizardState.currentStep === 6) {
         $('#recipeModal').modal('hide')
         this.wizardState.currentStep = 1
         recipeData.recipeType.length = 0
+        window.location.href = '/index.html'
       } else {
         this.wizardState.currentStep = this.wizardState.currentStep + 1
       }
+      console.log(this.wizardState.currentStep)
       this.update()
+      console.log(this.wizardState.currentStep)
     })
   }
 }

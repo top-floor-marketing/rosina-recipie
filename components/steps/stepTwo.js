@@ -1,5 +1,16 @@
 const stepTwoTemplate = (x) => {
   return /* html */ `
+  <div class='row align-items-center mb-4 header-ingredients'>
+  <div class='col-md-7 col-xs-12'>
+    <p>Ingredient</p>
+  </div>
+  <div class='col px-1'>
+    <p>Amount</p>
+  </div>
+  <div class='col px-1'>
+    <p>Measurement</p>
+  </div>
+</div>
   <div>
     <floating-widget />
   </div>
@@ -17,18 +28,6 @@ class stepTwo extends HTMLElement {
   constructor () {
     super()
     this.render()
-  }
-
-  connectedCallback () {
-    // Animation rerender fix
-    this.querySelectorAll('.animate__fadeInUp').forEach(e => {
-      e.classList.add('animate__animated')
-    })
-    this.querySelectorAll('.animate__animated').forEach(element => {
-      element.addEventListener('animationend', (e) => {
-        e.target.classList.remove('animate__animated')
-      })
-    })
   }
 
   render () {

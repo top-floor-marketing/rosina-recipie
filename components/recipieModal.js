@@ -144,11 +144,8 @@ class RecipieModal extends HTMLElement {
                   </div>
                   <div class="row m-2">
                     <div class="col">
-                      <i class="fab fa-facebook mr-2" style="color: var(--red); font-size: 18px"></i>
-                      <i class="fab fa-instagram mr-2" style="color: var(--red); font-size: 18px"></i>
-                      <i class="fab fa-twitter mr-2" style="color: var(--red); font-size: 18px"></i>
-                      <i class="fab fa-youtube mr-2" style="color: var(--red); font-size: 18px"></i>
-                      <i class="fab fa-pinterest mr-2" style="color: var(--red); font-size: 18px"></i>
+                    <a href='https://www.facebook.com/sharer/sharer.php?u=http://rosinarecipe.bytfm.com/' target='_blank'><i class="fab fa-facebook mr-2" style="color: var(--red); font-size: 18px"></i></a>
+                      <a href='http://www.twitter.com/share?url=http://rosinarecipe.bytfm.com/' target='_blank'><i class="fab fa-twitter mr-2" style="color: var(--red); font-size: 18px"></i></a>
                     </div>
                   </div>
                 </div>
