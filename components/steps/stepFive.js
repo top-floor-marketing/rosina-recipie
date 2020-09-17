@@ -19,14 +19,25 @@ const emptyTemplatePic = () => {
   `
 }
 
+const validateEmail = (email) => {
+  var re = /\S+@\S+\.\S+/
+  return re.test(email)
+}
+
 const stepFiveTemplate = (x) => {
+  let emailValidity = true
+  if (x.userEmail.length) emailValidity = validateEmail(x.userEmail) ? '' : 'is-invalid'
+
   return /* html */`
       <div class='row animate__fadeInUp'>
         <div class='col-12 col-md-6'>
         <input id='recipeName' type='text' value='${x.recipeName}' placeholder='Recipe Name' class='w-100 mat-text-field mb-3'>
         <input id='userFirstName' type='text' value='${x.userFirstName}' placeholder='Your First Name' class='w-100 mat-text-field mb-3'>
         <input id='userLastName' type='text' value='${x.userLastName}' placeholder='Your Last Name' class='w-100 mat-text-field mb-3'>
-        <input id='userEmail' type='email' value='${x.userEmail}' placeholder='Email Address' class='w-100 mat-text-field mb-3'>
+        <div class="form-group">
+          <input style="height: 27px" class='form-control ${emailValidity} p-0 rounded-0 w-100 mat-text-field mb-3' id='userEmail' type='email' value='${x.userEmail}' placeholder='Email Address'>
+          <div class="invalid-feedback">The provided email is invalid</div>
+        </div>
         <input id='userPhone' type='text' value='${x.phone}' placeholder='Phone Number' class='w-100 mat-text-field mb-3'>
         </div>
         <div class='col-12 col-md-6 text-center'>
