@@ -3,7 +3,7 @@ const stepSixTemplate = () => {
       <div class='text-center'>
         <img src="./assets/img/success-plate.jpg" class="img-fluid" alt="">
       </div>
-      `
+    `
 }
 
 class stepSix extends HTMLElement {
