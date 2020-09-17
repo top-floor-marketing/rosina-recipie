@@ -46,7 +46,8 @@ const stepFiveTemplate = (x) => {
             ? fileInputStep5()
             : emptyTemplatePic()
           }
-          <p class='mt-3'>Upload your chef picture!</p>
+          <p class='mt-3 mb-0'>Upload your chef picture!</p>
+          <p class='text-muted'>*optional</p>
         </div>
       </div>
       `
