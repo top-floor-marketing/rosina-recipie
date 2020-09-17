@@ -104,6 +104,8 @@ p {
   background-color: var(--red);
   padding: 25px;
   border-radius: 20px;
+  max-width: 100%;
+  margin: 120px 10%;
 }
 
 .btn {
@@ -155,12 +157,16 @@ p {
   box-shadow: 0 3px 7px 0.2rem #00000024 !important;
 }
 
-@media all and (max-width:767px) {
+@media all and (max-width:768px) {
   .no-bg-mob {
     background-image: none;
   }
   .vh-60 {
     min-height: inherit;
+  }
+
+  .CTA {
+    margin: 120px 2% 0;
   }
 
   .responsive-pl-5 {
@@ -176,8 +182,7 @@ p {
   }
 
   .leaf-right {
-    right: 0;
-    bottom: -5.3em;
+    bottom: -6.3em;
   }
 }
 
