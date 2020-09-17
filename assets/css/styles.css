@@ -109,6 +109,8 @@ p {
   background-color: var(--red);
   padding: 25px;
   border-radius: 20px;
+  max-width: 100%;
+  margin: 120px 10%;
 }
 
 .btn {
@@ -189,6 +191,10 @@ p {
     min-height: inherit;
   }
 
+  .CTA {
+    margin: 120px 2% 0;
+  }
+
   .responsive-pl-5 {
     padding-left:0 !important;
   }
@@ -202,9 +208,9 @@ p {
   }
 
   .leaf-right {
-    display: none;
     right: 0;
-    bottom: -5.3em;
+    display: none;
+    bottom: -6.3em;
   }
 }
 
