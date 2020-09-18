@@ -1,7 +1,7 @@
 const stepSixTemplate = () => {
   return /* html */ `
       <div class='text-center'>
-        <img src="./assets/img/success-plate.jpg" class="img-fluid" alt="">
+        <img src="./assets/img/success-plate.jpg" class="img-fluid rounded" alt="">
       </div>
       `
 }

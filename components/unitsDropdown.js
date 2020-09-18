@@ -15,11 +15,11 @@ const unitsDropdownTemplate = () => {
             <option value='pint'>pint</option>
             <option value='quart'>quart</option>
             <option value='pound'>pound</option>
-            <option value='Box'>Box</option>
-            <option value='Unit'>Unit</option>
-            <option value='Jar'>Jar</option>
-            <option value='Package'>Package</option>
-            <option value='Can'>Can</option>
+            <option value='box'>box</option>
+            <option value='unit'>unit</option>
+            <option value='jar'>jar</option>
+            <option value='package'>package</option>
+            <option value='can'>can</option>
           </select>
       </div>
         `

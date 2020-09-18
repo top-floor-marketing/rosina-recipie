@@ -128,13 +128,13 @@ p {
 .leaf-left {
   position: absolute;
   left: -4em;
-  top: -6em;
+  top: -5em;
 }
 
 .leaf-right {
   position: absolute;
   right: -6em;
-  bottom: -8.3em;
+  bottom: -7.3em;
   transform: rotate(114deg)scale(0.8);
 }
 
@@ -172,6 +172,7 @@ p {
 }
 
 @media all and (max-width:767px) {
+
   floating-widget {
     position: relative !important;
     top: -3em !important;
@@ -431,4 +432,19 @@ floating-widget {
   .header-ingredients {
     display: none;
   }
+}
+
+@media all and (max-width: 1199px) {
+  .product-card-inner {
+    min-width: 100% !important;
+  }
+}
+
+@media all and (max-width:350px) {
+  .product-card-img {
+    display: none;
+  }
+  .img-area {
+    margin-left: 0;
+}
 }
