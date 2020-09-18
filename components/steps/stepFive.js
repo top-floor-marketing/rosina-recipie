@@ -19,26 +19,25 @@ const emptyTemplatePic = () => {
   `
 }
 
-const validate = (email) => {
-  const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i
-  return expression.test(String(email).toLowerCase())
+const validateEmail = (email) => {
+  var re = /\S+@\S+\.\S+/
+  return re.test(email)
 }
 
 const stepFiveTemplate = (x) => {
+  let emailValidity = true
+  if (x.userEmail.length) emailValidity = validateEmail(x.userEmail) ? '' : 'is-invalid'
+
   return /* html */`
       <div class='row animate__fadeInUp'>
         <div class='col-12 col-md-6'>
         <input id='recipeName' type='text' value='${x.recipeName}' placeholder='Recipe Name' class='w-100 mat-text-field mb-3'>
         <input id='userFirstName' type='text' value='${x.userFirstName}' placeholder='Your First Name' class='w-100 mat-text-field mb-3'>
         <input id='userLastName' type='text' value='${x.userLastName}' placeholder='Your Last Name' class='w-100 mat-text-field mb-3'>
-        <input id='userEmail' type='email' value='${x.userEmail}' placeholder='Email Address' class='w-100 mat-text-field mb-3'>
-        ${
-          x.emailAlert
-          ? `<div class="alert alert-danger" role="alert">
-          The email format is invalid
-        </div>`
-          : ''
-        }
+        <div class="form-group">
+          <input style="height: 27px" class='form-control ${emailValidity} p-0 rounded-0 w-100 mat-text-field mb-3' id='userEmail' type='email' value='${x.userEmail}' placeholder='Email Address'>
+          <div class="invalid-feedback">The provided email is invalid</div>
+        </div>
         <input id='userPhone' type='text' value='${x.phone}' placeholder='Phone Number' class='w-100 mat-text-field mb-3'>
         </div>
         <div class='col-12 col-md-6 text-center'>
@@ -47,7 +46,8 @@ const stepFiveTemplate = (x) => {
             ? fileInputStep5()
             : emptyTemplatePic()
           }
-          <p class='mt-3'>Upload your chef picture!</p>
+          <p class='mt-3 mb-0'>Upload your chef picture!</p>
+          <p class='text-muted'>*optional</p>
         </div>
       </div>
       `
